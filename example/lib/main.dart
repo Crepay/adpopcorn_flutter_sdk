@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:developer';
 
-import 'package:flutter/services.dart';
 import 'package:adpopcorn_flutter_sdk/adpopcorn_flutter_sdk.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _adpopcornFlutterSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
+          await AdpopcornFlutterSdk.getPlatformVersion() ?? 'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +56,29 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              const SizedBox(height: 32),
+              Text('Running on: $_platformVersion'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  const userId = 'TEST_USER_ID';
+                  var result = await AdpopcornFlutterSdk.setUserId(userId);
+                  log('setUserId() id=$userId, result=$result');
+                },
+                child: const Text('setUserId()'),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  var result = await AdpopcornFlutterSdk.openOfferWall();
+                  log('openOfferWall() result=$result');
+                },
+                child: const Text('openOfferWall()'),
+              ),
+            ],
+          )
         ),
       ),
     );

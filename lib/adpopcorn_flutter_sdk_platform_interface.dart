@@ -24,6 +24,14 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('getPlatformVersion() has not been implemented.');
+  }
+
+  Future<bool> setUserId(String userId) {
+    throw UnimplementedError('setUserId() has not been implemented.');
+  }
+
+  Future<bool> openOfferWall() {
+    throw UnimplementedError('openOfferWall() has not been implemented.');
   }
 }

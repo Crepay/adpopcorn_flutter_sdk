@@ -11,7 +11,16 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+    return await methodChannel.invokeMethod<String>('getPlatformVersion');
+  }
+
+  @override
+  Future<bool> setUserId(String userId) async {
+    return await methodChannel.invokeMethod<bool>('setUserId', { userId: userId }) ?? false;
+  }
+
+  @override
+  Future<bool> openOfferWall() async {
+    return await methodChannel.invokeMethod<bool>('openOfferWall') ?? false;
   }
 }
