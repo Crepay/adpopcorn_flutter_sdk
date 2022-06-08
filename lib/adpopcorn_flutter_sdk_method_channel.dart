@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -9,18 +11,27 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('adpopcorn_flutter_sdk');
 
+  Future<T?> _handleException<T>(String methodName, [dynamic arguments]) {
+    try {
+      return methodChannel.invokeMethod<T>(methodName, arguments);
+    } on PlatformException catch (e, s) {
+      log('Exception during invoking \'$methodName\'', error: e, stackTrace: s);
+      return Future<T?>(() => null);
+    }
+  }
+
   @override
   Future<String?> getPlatformVersion() async {
-    return await methodChannel.invokeMethod<String>('getPlatformVersion');
+    return await _handleException('getPlatformVersion');
   }
 
   @override
   Future<bool> setUserId(String userId) async {
-    return await methodChannel.invokeMethod<bool>('setUserId', { userId: userId }) ?? false;
+    return await _handleException<bool>('setUserId', {userId: userId}) ?? false;
   }
 
   @override
   Future<bool> openOfferWall() async {
-    return await methodChannel.invokeMethod<bool>('openOfferWall') ?? false;
+    return await _handleException<bool>('openOfferWall') ?? false;
   }
 }
