@@ -17,13 +17,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   String _platformVersion = 'Unknown';
-  final _adpopcornFlutterSdkPlugin = AdpopcornFlutterSdk();
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    initEventListener();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -48,9 +49,24 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void initEventListener() {
+    AdpopcornFlutterSdk.setOnAgreePrivacy(() => showSnackBar('onAgreePrivacy!'));
+    AdpopcornFlutterSdk.setOnDisagreePrivacy(() => showSnackBar('onDisagreePrivacy!'));
+    AdpopcornFlutterSdk.setOnClosedOfferWallPage(() => showSnackBar('onClosedOfferWallPage!'));
+  }
+
+  void showSnackBar(String text) {
+    var state = scaffoldMessengerKey.currentState;
+    scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
+      content: Text(text),
+      duration: const Duration(seconds: 1),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
@@ -64,16 +80,16 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   const userId = 'TEST_USER_ID';
-                  var result = await AdpopcornFlutterSdk.setUserId(userId);
-                  log('setUserId() id=$userId, result=$result');
+                  log('setUserId() id=$userId');
+                  await AdpopcornFlutterSdk.setUserId(userId);
                 },
                 child: const Text('setUserId()'),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
-                  var result = await AdpopcornFlutterSdk.openOfferWall();
-                  log('openOfferWall() result=$result');
+                  log('openOfferWall()');
+                  await AdpopcornFlutterSdk.openOfferWall();
                 },
                 child: const Text('openOfferWall()'),
               ),
