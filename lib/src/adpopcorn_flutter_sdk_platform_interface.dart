@@ -2,6 +2,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'adpopcorn_flutter_sdk_method_channel.dart';
 
+typedef OnGetEarnableTotalRewardInfo = void Function(bool queryResult, int totalCount, String totalReward);
+typedef Listener = void Function();
+
 abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
   /// Constructs a AdpopcornFlutterSdkPlatform.
   AdpopcornFlutterSdkPlatform() : super(token: _token);
@@ -35,16 +38,28 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError('openOfferWall() has not been implemented.');
   }
 
-  Future<void> setOnAgreePrivacy(Function func) {
+  Future<void> setOnAgreePrivacy(Listener listener) {
     throw UnimplementedError('setOnAgreePrivacy() has not been implemented.');
   }
 
-  Future<void> setOnDisagreePrivacy(Function func) {
+  Future<void> setOnDisagreePrivacy(Listener listener) {
     throw UnimplementedError('setOnDisagreePrivacy() has not been implemented.');
   }
 
-  Future<void> setOnClosedOfferWallPage(Function func) {
+  Future<void> setOnClosedOfferWallPage(Listener listener) {
     throw UnimplementedError('setOnClosedOfferWallPage() has not been implemented.');
+  }
+
+  Future<void> useFlagShowWhenLocked(bool flag) {
+    throw UnimplementedError('useFlagShowWhenLocked() has not been implemented.');
+  }
+
+  Future<void> openCSPage(String userId) {
+    throw UnimplementedError('openCSPage() has not been implemented.');
+  }
+
+  Future<void> getEarnableTotalRewardInfo(OnGetEarnableTotalRewardInfo callback) {
+    throw UnimplementedError('getEarnableTotalRewardInfo() has not been implemented.');
   }
 
 }
