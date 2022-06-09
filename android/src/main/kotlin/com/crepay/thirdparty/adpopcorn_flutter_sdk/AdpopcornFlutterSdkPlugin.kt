@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.annotation.NonNull
 import com.igaworks.adpopcorn.Adpopcorn
 import com.igaworks.adpopcorn.AdpopcornExtension
+import com.igaworks.adpopcorn.cores.common.APPopupAdError
+import com.igaworks.adpopcorn.interfaces.IAPPopupAdEventListener
 import com.igaworks.adpopcorn.interfaces.IAdPOPcornEventListener
 import io.flutter.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -70,6 +72,40 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
                     ), invokeResult
                 )
             };
+            result.success(true)
+        } else if (call.method == "loadPopupAd") {
+            Adpopcorn.loadPopupAd(activity, object : IAPPopupAdEventListener {
+                override fun OnLoadPopupAdSuccess() {
+                    channel.invokeMethod("OnLoadPopupAdSuccess", null, invokeResult)
+                }
+
+                override fun OnLoadPopupAdFailure(error: APPopupAdError) {
+                    channel.invokeMethod(
+                        "OnLoadPopupAdFailure", mapOf(
+                            "errorCode" to error.errorCode,
+                            "errorMessage" to error.errorMessage,
+                        ), invokeResult
+                    )
+                }
+
+                override fun OnShowPopupAdSuccess() {
+                    channel.invokeMethod("OnShowPopupAdSuccess", null, invokeResult)
+                }
+
+                override fun OnShowPopupAdFailure(error: APPopupAdError) {
+                    channel.invokeMethod(
+                        "OnShowPopupAdFailure", mapOf(
+                            "errorCode" to error.errorCode,
+                            "errorMessage" to error.errorMessage,
+                        ), invokeResult
+                    )
+                }
+
+                override fun OnPopupAdClose() {
+                    channel.invokeMethod("OnPopupAdClose", null, invokeResult)
+                }
+
+            })
             result.success(true)
         } else {
             result.notImplemented()

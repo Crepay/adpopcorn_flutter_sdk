@@ -125,6 +125,20 @@ class _MyAppState extends State<MyApp> {
               },
               child: const Text('getEarnableTotalRewardInfo()'),
             ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () async {
+                log('loadPopupAd()');
+                await AdpopcornFlutterSdk.loadPopupAd(
+                  onLoadPopupAdSuccess: () => showSnackBar('onLoadPopupAdSuccess'),
+                  onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar('onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                  onShowPopupAdSuccess: () => showSnackBar('onShowPopupAdSuccess'),
+                  onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar('onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                  onPopupAdClose: () => showSnackBar('onPopupAdClose'),
+                );
+              },
+              child: const Text('loadPopupAd()'),
+            ),
           ],
         )),
       ),

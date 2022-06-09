@@ -13,8 +13,9 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
   @visibleForTesting
   final MethodChannel methodChannel;
 
-  final listenerFunctions = <String, Listener>{};
+  final noArgListeners = <String, NoArgumentListener?>{};
   OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
+  final popupAdErrorListeners = <String, PopupAdErrorListener?>{};
 
   MethodChannelAdpopcornFlutterSdk()
       : methodChannel = const MethodChannel(channelName) {
@@ -46,25 +47,35 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
   }
 
   @override
-  Future<void> setOnAgreePrivacy(Listener listener) async {
-    listenerFunctions['onAgreePrivacy'] = listener;
+  Future<void> setOnAgreePrivacy(NoArgumentListener listener) async {
+    noArgListeners['onAgreePrivacy'] = listener;
   }
 
   @override
-  Future<void> setOnDisagreePrivacy(Listener listener) async {
-    listenerFunctions['onDisagreePrivacy'] = listener;
+  Future<void> setOnDisagreePrivacy(NoArgumentListener listener) async {
+    noArgListeners['onDisagreePrivacy'] = listener;
   }
 
   @override
-  Future<void> setOnClosedOfferWallPage(Listener listener) async {
-    listenerFunctions['onClosedOfferWallPage'] = listener;
+  Future<void> setOnClosedOfferWallPage(NoArgumentListener listener) async {
+    noArgListeners['onClosedOfferWallPage'] = listener;
   }
 
   Future<void> _handleMethodCall(MethodCall call) async {
-    Listener? listener = listenerFunctions[call.method];
-    if (listener != null) {
-      return listener.call();
+    NoArgumentListener? noArgListener = noArgListeners[call.method];
+    if (noArgListener != null) {
+      return noArgListener();
     }
+
+    PopupAdErrorListener? popupAdErrorListener =
+        popupAdErrorListeners[call.method];
+    if (popupAdErrorListener != null) {
+      return popupAdErrorListener(
+        call.arguments['errorCode'],
+        call.arguments['errorMessage'],
+      );
+    }
+
     if (call.method == 'onGetEarnableTotalRewardInfo') {
       onGetEarnableTotalRewardInfo!(
         call.arguments['queryResult'],
@@ -91,4 +102,21 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
     onGetEarnableTotalRewardInfo = callback;
     return await _handleException('getEarnableTotalRewardInfo');
   }
+
+  @override
+  Future<void> loadPopupAd({
+    NoArgumentListener? onLoadPopupAdSuccess,
+    PopupAdErrorListener? onLoadPopupAdFailure,
+    NoArgumentListener? onShowPopupAdSuccess,
+    PopupAdErrorListener? onShowPopupAdFailure,
+    NoArgumentListener? onPopupAdClose,
+  }) async {
+    noArgListeners['onLoadPopupAdSuccess'] = onLoadPopupAdSuccess;
+    noArgListeners['onShowPopupAdSuccess'] = onShowPopupAdSuccess;
+    noArgListeners['onPopupAdClose'] = onPopupAdClose;
+    popupAdErrorListeners['onLoadPopupAdFailure'] = onLoadPopupAdFailure;
+    popupAdErrorListeners['onShowPopupAdFailure'] = onShowPopupAdFailure;
+    return await _handleException('loadPopupAd');
+  }
+
 }
