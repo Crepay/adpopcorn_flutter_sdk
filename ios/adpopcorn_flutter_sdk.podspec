@@ -6,15 +6,14 @@ Pod::Spec.new do |s|
   s.name             = 'adpopcorn_flutter_sdk'
   s.version          = '0.1.0'
   s.summary          = 'AdPopcorn SDK for flutter'
-  s.description      = <<-DESC
-AdPopcorn SDK for flutter
-                       DESC
   s.homepage         = 'https://www.crepay.com'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Crepay, Inc.' => 'neo.kim@crepay.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.dependency 'AdPopcornOfferwall', '~> 4.2.3'
+  s.static_framework = true
   s.platform = :ios, '9.0'
 
   # Flutter.framework does not contain a i386 slice.

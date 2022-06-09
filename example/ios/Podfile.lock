@@ -1,5 +1,5 @@
 PODS:
-  - adpopcorn_flutter_sdk (0.0.1):
+  - adpopcorn_flutter_sdk (0.1.0):
     - Flutter
   - Flutter (1.0.0)
 
@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  adpopcorn_flutter_sdk: 7980f6a3b06e26ad8b4cc0d54ff6950370e57e5b
+  adpopcorn_flutter_sdk: 08456694294061c33e13a38db72fec675b97b3ca
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
