@@ -9,8 +9,6 @@ void main() {
   runApp(const MyApp());
 }
 
-const userId = 'TEST_USER_ID';
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -21,13 +19,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  final textControllerUserId = TextEditingController();
   String _platformVersion = 'Unknown';
+  String userId = '';
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
     initEventListener();
+  }
+
+  @override
+  void dispose() {
+    textControllerUserId.dispose();
+    super.dispose();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -76,83 +82,105 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-            child: Column(
-          children: [
-            const SizedBox(height: 32),
-            Text('Running on: $_platformVersion'),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                log('setUserId() id=$userId');
-                await AdpopcornFlutterSdk.setUserId(userId);
-              },
-              child: const Text('setUserId()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('openOfferWall()');
-                await AdpopcornFlutterSdk.openOfferWall();
-              },
-              child: const Text('openOfferWall()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('useFlagShowWhenLocked()');
-                await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
-              },
-              child: const Text('useFlagShowWhenLocked()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('openCSPage()');
-                await AdpopcornFlutterSdk.openCSPage(userId);
-              },
-              child: const Text('openCSPage()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('getEarnableTotalRewardInfo()');
-                await AdpopcornFlutterSdk.getEarnableTotalRewardInfo(
-                    (queryResult, totalCount, totalReward) {
-                  showSnackBar(
-                      'queryResult=$queryResult, totalCount=$totalCount, totalReward=$totalReward');
-                });
-              },
-              child: const Text('getEarnableTotalRewardInfo()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('loadPopupAd()');
-                await AdpopcornFlutterSdk.loadPopupAd(
-                  onLoadPopupAdSuccess: () =>
-                      showSnackBar('onLoadPopupAdSuccess'),
-                  onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                      'onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
-                  onShowPopupAdSuccess: () =>
-                      showSnackBar('onShowPopupAdSuccess'),
-                  onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                      'onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
-                  onPopupAdClose: () => showSnackBar('onPopupAdClose'),
-                );
-              },
-              child: const Text('loadPopupAd()'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () async {
-                log('showPopupAd()');
-                await AdpopcornFlutterSdk.showPopupAd();
-              },
-              child: const Text('showPopupAd()'),
-            ),
-          ],
-        )),
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Center(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+            children: [
+                  const SizedBox(height: 32),
+                  Text('Running on: $_platformVersion'),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: 200,
+                    child: TextFormField(
+                      controller: textControllerUserId,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'User ID',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      userId = textControllerUserId.text;
+                      log('setUserId() id=$userId');
+                      await AdpopcornFlutterSdk.setUserId(userId);
+                    },
+                    child: const Text('setUserId()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('openOfferWall()');
+                      await AdpopcornFlutterSdk.openOfferWall();
+                    },
+                    child: const Text('openOfferWall()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('useFlagShowWhenLocked()');
+                      await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
+                    },
+                    child: const Text('useFlagShowWhenLocked()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('openCSPage() userId=$userId');
+                      await AdpopcornFlutterSdk.openCSPage(userId);
+                    },
+                    child: const Text('openCSPage()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('getEarnableTotalRewardInfo()');
+                      await AdpopcornFlutterSdk.getEarnableTotalRewardInfo(
+                          (queryResult, totalCount, totalReward) {
+                        showSnackBar(
+                            'queryResult=$queryResult, totalCount=$totalCount, totalReward=$totalReward');
+                      });
+                    },
+                    child: const Text('getEarnableTotalRewardInfo()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('loadPopupAd()');
+                      await AdpopcornFlutterSdk.loadPopupAd(
+                        onLoadPopupAdSuccess: () =>
+                            showSnackBar('onLoadPopupAdSuccess'),
+                        onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
+                            'onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                        onShowPopupAdSuccess: () =>
+                            showSnackBar('onShowPopupAdSuccess'),
+                        onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
+                            'onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                        onPopupAdClose: () => showSnackBar('onPopupAdClose'),
+                      );
+                    },
+                    child: const Text('loadPopupAd()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      log('showPopupAd()');
+                      await AdpopcornFlutterSdk.showPopupAd();
+                    },
+                    child: const Text('showPopupAd()'),
+                  ),
+            ],
+          ),
+                ),
+              )),
+        ),
       ),
     );
   }
