@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
   void showSnackBar(String text) {
     scaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
       content: Text(text),
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 600),
     ));
   }
 

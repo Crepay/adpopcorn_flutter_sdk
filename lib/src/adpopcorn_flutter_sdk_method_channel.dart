@@ -77,12 +77,11 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
     }
 
     if (call.method == 'onGetEarnableTotalRewardInfo') {
-      onGetEarnableTotalRewardInfo!(
+      return onGetEarnableTotalRewardInfo!(
         call.arguments['queryResult'],
         call.arguments['totalCount'],
         call.arguments['totalReward'],
       );
-      return;
     }
   }
 
