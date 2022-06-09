@@ -78,13 +78,13 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
             Adpopcorn.loadPopupAd(activity, object : IAPPopupAdEventListener {
                 override fun OnLoadPopupAdSuccess() {
                     Log.i(TAG, "OnLoadPopupAdSuccess:")
-                    channel.invokeMethod("OnLoadPopupAdSuccess", null, invokeResult)
+                    channel.invokeMethod("onLoadPopupAdSuccess", null, invokeResult)
                 }
 
                 override fun OnLoadPopupAdFailure(error: APPopupAdError) {
-                    Log.e(TAG, "OnLoadPopupAdFailure:")
+                    Log.e(TAG, "OnLoadPopupAdFailure: errorCode=${error.errorCode}, errorMessage=${error.errorMessage}")
                     channel.invokeMethod(
-                        "OnLoadPopupAdFailure", mapOf(
+                        "onLoadPopupAdFailure", mapOf(
                             "errorCode" to error.errorCode,
                             "errorMessage" to error.errorMessage,
                         ), invokeResult
@@ -93,13 +93,13 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
 
                 override fun OnShowPopupAdSuccess() {
                     Log.d(TAG, "OnShowPopupAdSuccess:")
-                    channel.invokeMethod("OnShowPopupAdSuccess", null, invokeResult)
+                    channel.invokeMethod("onShowPopupAdSuccess", null, invokeResult)
                 }
 
                 override fun OnShowPopupAdFailure(error: APPopupAdError) {
-                    Log.e(TAG, "OnShowPopupAdFailure:")
+                    Log.e(TAG, "OnShowPopupAdFailure: errorCode=${error.errorCode}, errorMessage=${error.errorMessage}")
                     channel.invokeMethod(
-                        "OnShowPopupAdFailure", mapOf(
+                        "onShowPopupAdFailure", mapOf(
                             "errorCode" to error.errorCode,
                             "errorMessage" to error.errorMessage,
                         ), invokeResult
@@ -108,7 +108,7 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
 
                 override fun OnPopupAdClose() {
                     Log.d(TAG, "OnPopupAdClose:")
-                    channel.invokeMethod("OnPopupAdClose", null, invokeResult)
+                    channel.invokeMethod("onPopupAdClose", null, invokeResult)
                 }
 
             })
