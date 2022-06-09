@@ -45,5 +45,7 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Need device tracking permission for AdPopcorn</string>
 </dict>
 </plist>
