@@ -54,4 +54,8 @@ class AdpopcornFlutterSdk {
     );
   }
 
+  static Future<void> showPopupAd() {
+    return AdpopcornFlutterSdkPlatform.instance.showPopupAd();
+  }
+
 }

@@ -119,4 +119,9 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
     return await _handleException('loadPopupAd');
   }
 
+  @override
+  Future<void> showPopupAd() async {
+    return await _handleException('showPopupAd');
+  }
+
 }

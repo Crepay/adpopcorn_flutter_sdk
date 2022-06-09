@@ -18,7 +18,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 private const val CHANNEL_NAME = "adpopcorn_flutter_sdk"
-private const val TAG: String = "AdpopcornFlutterSdkPlugin";
+private const val TAG: String = "[Android] AdpopcornFlutterSdkPlugin";
 
 /** AdpopcornFlutterSdkPlugin */
 class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -29,15 +29,15 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
 
     private val invokeResult = object : Result {
         override fun success(result: Any?) {
-            Log.d(TAG, "success: '$result'")
+            Log.v(TAG, "invokeResult: success: '$result'")
         }
 
         override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
-            Log.e(TAG, "error: $errorCode, $errorMessage, $errorDetails")
+            Log.e(TAG, "invokeResult: error: $errorCode, $errorMessage, $errorDetails")
         }
 
         override fun notImplemented() {
-            Log.e(TAG, "notImplemented:")
+            Log.e(TAG, "invokeResult: notImplemented:")
         }
     }
 
@@ -52,16 +52,16 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
         } else if (call.method == "setUserId") {
             Adpopcorn.setUserId(activity, call.argument("userId"))
-            result.success(true)
+            result.success(null)
         } else if (call.method == "openOfferWall") {
             Adpopcorn.openOfferWall(activity)
-            result.success(true)
+            result.success(null)
         } else if (call.method == "useFlagShowWhenLocked") {
             AdpopcornExtension.useFlagShowWhenLocked(activity, call.argument("flag") ?: false)
-            result.success(true)
+            result.success(null)
         } else if (call.method == "openCSPage") {
             AdpopcornExtension.openCSPage(activity, call.argument("userId"))
-            result.success(true)
+            result.success(null)
         } else if (call.method == "getEarnableTotalRewardInfo") {
             AdpopcornExtension.getEarnableTotalRewardInfo(activity) { queryResult, totalCount, totalReward ->
                 channel.invokeMethod(
@@ -72,7 +72,7 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
                     ), invokeResult
                 )
             };
-            result.success(true)
+            result.success(null)
         } else if (call.method == "loadPopupAd") {
             Adpopcorn.loadPopupAd(activity, object : IAPPopupAdEventListener {
                 override fun OnLoadPopupAdSuccess() {
@@ -106,7 +106,10 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
                 }
 
             })
-            result.success(true)
+            result.success(null)
+        } else if (call.method == "showPopupAd") {
+            Adpopcorn.showPopupAd(activity)
+            result.success(null)
         } else {
             result.notImplemented()
         }

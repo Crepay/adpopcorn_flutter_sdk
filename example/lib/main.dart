@@ -130,14 +130,26 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 log('loadPopupAd()');
                 await AdpopcornFlutterSdk.loadPopupAd(
-                  onLoadPopupAdSuccess: () => showSnackBar('onLoadPopupAdSuccess'),
-                  onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar('onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
-                  onShowPopupAdSuccess: () => showSnackBar('onShowPopupAdSuccess'),
-                  onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar('onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                  onLoadPopupAdSuccess: () =>
+                      showSnackBar('onLoadPopupAdSuccess'),
+                  onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
+                      'onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                  onShowPopupAdSuccess: () =>
+                      showSnackBar('onShowPopupAdSuccess'),
+                  onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
+                      'onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
                   onPopupAdClose: () => showSnackBar('onPopupAdClose'),
                 );
               },
               child: const Text('loadPopupAd()'),
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () async {
+                log('showPopupAd()');
+                await AdpopcornFlutterSdk.showPopupAd();
+              },
+              child: const Text('showPopupAd()'),
             ),
           ],
         )),

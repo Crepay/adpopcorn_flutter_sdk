@@ -81,4 +81,9 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError(
         'loadPopupAd() has not been implemented.');
   }
+
+  Future<void> showPopupAd() {
+    throw UnimplementedError('showPopupAd() has not been implemented.');
+  }
+
 }
