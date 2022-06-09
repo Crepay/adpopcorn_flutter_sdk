@@ -74,12 +74,15 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
             };
             result.success(null)
         } else if (call.method == "loadPopupAd") {
+            Log.i(TAG, "loadPopupAd:")
             Adpopcorn.loadPopupAd(activity, object : IAPPopupAdEventListener {
                 override fun OnLoadPopupAdSuccess() {
+                    Log.i(TAG, "OnLoadPopupAdSuccess:")
                     channel.invokeMethod("OnLoadPopupAdSuccess", null, invokeResult)
                 }
 
                 override fun OnLoadPopupAdFailure(error: APPopupAdError) {
+                    Log.e(TAG, "OnLoadPopupAdFailure:")
                     channel.invokeMethod(
                         "OnLoadPopupAdFailure", mapOf(
                             "errorCode" to error.errorCode,
@@ -89,10 +92,12 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
                 }
 
                 override fun OnShowPopupAdSuccess() {
+                    Log.d(TAG, "OnShowPopupAdSuccess:")
                     channel.invokeMethod("OnShowPopupAdSuccess", null, invokeResult)
                 }
 
                 override fun OnShowPopupAdFailure(error: APPopupAdError) {
+                    Log.e(TAG, "OnShowPopupAdFailure:")
                     channel.invokeMethod(
                         "OnShowPopupAdFailure", mapOf(
                             "errorCode" to error.errorCode,
@@ -102,6 +107,7 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
                 }
 
                 override fun OnPopupAdClose() {
+                    Log.d(TAG, "OnPopupAdClose:")
                     channel.invokeMethod("OnPopupAdClose", null, invokeResult)
                 }
 
