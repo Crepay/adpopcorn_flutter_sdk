@@ -1,4 +1,4 @@
-group 'com.crepay.thirdparty.adpopcorn_flutter_sdk'
+group 'com.crepay.thirdparty.adpopcorn.adpopcorn_flutter_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {

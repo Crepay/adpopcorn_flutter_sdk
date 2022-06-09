@@ -1,4 +1,4 @@
-package com.crepay.thirdparty.adpopcorn_flutter_sdk
+package com.crepay.thirdparty.adpopcorn.adpopcorn_flutter_sdk
 
 import android.app.Activity
 import android.content.Context

@@ -21,7 +21,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.crepay.thirdparty.adpopcorn_flutter_sdk
+        package: com.crepay.thirdparty.adpopcorn.adpopcorn_flutter_sdk
         pluginClass: AdpopcornFlutterSdkPlugin
       ios:
         pluginClass: AdpopcornFlutterSdkPlugin
