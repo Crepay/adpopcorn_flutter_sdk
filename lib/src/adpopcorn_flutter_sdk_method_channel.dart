@@ -14,8 +14,8 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
   final MethodChannel methodChannel;
 
   final noArgListeners = <String, NoArgumentListener?>{};
-  OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
   final popupAdErrorListeners = <String, PopupAdErrorListener?>{};
+  OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
 
   MethodChannelAdpopcornFlutterSdk()
       : methodChannel = const MethodChannel(channelName) {
@@ -29,11 +29,6 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
       log('Exception during invoking \'$methodName\'', error: e, stackTrace: s);
       return Future<T?>(() => null);
     }
-  }
-
-  @override
-  Future<String?> getPlatformVersion() async {
-    return await _handleException('getPlatformVersion');
   }
 
   @override
