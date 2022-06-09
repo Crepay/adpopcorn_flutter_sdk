@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:adpopcorn_flutter_sdk/adpopcorn_flutter_sdk.dart';
-import 'package:adpopcorn_flutter_sdk/adpopcorn_flutter_sdk_platform_interface.dart';
-import 'package:adpopcorn_flutter_sdk/adpopcorn_flutter_sdk_method_channel.dart';
+import 'package:adpopcorn_flutter_sdk/src/adpopcorn_flutter_sdk_platform_interface.dart';
+import 'package:adpopcorn_flutter_sdk/src/adpopcorn_flutter_sdk_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockAdpopcornFlutterSdkPlatform 

@@ -1,4 +1,4 @@
-package com.crepay.thirdparty.adpopcorn_flutter_sdk_example
+package com.crepay.thirdparty.adpopcorn.adpopcorn_flutter_sdk_example
 
 import io.flutter.embedding.android.FlutterActivity
 
