@@ -34,7 +34,7 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError('getPlatformVersion() has not been implemented.');
   }
 
-  Future<void> setUserId(String userId) {
+  Future<bool> setUserId(String userId) {
     throw UnimplementedError('setUserId() has not been implemented.');
   }
 
@@ -56,7 +56,7 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
         'setOnClosedOfferWallPage() has not been implemented.');
   }
 
-  Future<void> useFlagShowWhenLocked(bool flag) {
+  Future<bool> useFlagShowWhenLocked(bool flag) {
     throw UnimplementedError(
         'useFlagShowWhenLocked() has not been implemented.');
   }

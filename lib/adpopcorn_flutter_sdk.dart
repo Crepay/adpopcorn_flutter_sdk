@@ -6,7 +6,7 @@ class AdpopcornFlutterSdk {
     return AdpopcornFlutterSdkPlatform.instance.getPlatformVersion();
   }
 
-  static Future<void> setUserId(String userId) async {
+  static Future<bool> setUserId(String userId) async {
     return AdpopcornFlutterSdkPlatform.instance.setUserId(userId);
   }
 
@@ -26,7 +26,7 @@ class AdpopcornFlutterSdk {
     return AdpopcornFlutterSdkPlatform.instance.setOnClosedOfferWallPage(listener);
   }
 
-  static Future<void> useFlagShowWhenLocked(bool flag) async {
+  static Future<bool> useFlagShowWhenLocked(bool flag) async {
     return AdpopcornFlutterSdkPlatform.instance.useFlagShowWhenLocked(flag);
   }
 

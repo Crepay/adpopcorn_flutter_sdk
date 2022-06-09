@@ -110,7 +110,8 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () async {
                       userId = textControllerUserId.text;
                       log('setUserId() id=$userId');
-                      await AdpopcornFlutterSdk.setUserId(userId);
+                      final result = await AdpopcornFlutterSdk.setUserId(userId);
+                      showSnackBar('setUserId() $result');
                     },
                     child: const Text('setUserId()'),
                   ),
@@ -126,7 +127,8 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('useFlagShowWhenLocked()');
-                      await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
+                      final result = await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
+                      showSnackBar('useFlagShowWhenLocked() $result');
                     },
                     child: const Text('useFlagShowWhenLocked()'),
                   ),

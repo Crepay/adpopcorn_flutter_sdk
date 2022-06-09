@@ -52,13 +52,13 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
         } else if (call.method == "setUserId") {
             Adpopcorn.setUserId(activity, call.argument("userId"))
-            result.success(null)
+            result.success(true)
         } else if (call.method == "openOfferWall") {
             Adpopcorn.openOfferWall(activity)
             result.success(null)
         } else if (call.method == "useFlagShowWhenLocked") {
             AdpopcornExtension.useFlagShowWhenLocked(activity, call.argument("flag") ?: false)
-            result.success(null)
+            result.success(true)
         } else if (call.method == "openCSPage") {
             AdpopcornExtension.openCSPage(activity, call.argument("userId"))
             result.success(null)
@@ -74,7 +74,6 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
             };
             result.success(null)
         } else if (call.method == "loadPopupAd") {
-            Log.i(TAG, "loadPopupAd:")
             Adpopcorn.loadPopupAd(activity, object : IAPPopupAdEventListener {
                 override fun OnLoadPopupAdSuccess() {
                     Log.i(TAG, "OnLoadPopupAdSuccess:")
