@@ -33,7 +33,7 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
 
   @override
   Future<bool> setUserId(String userId) async {
-    return await _handleException('setUserId', {userId: userId});
+    return (await _handleException<bool>('setUserId', {'userId': userId})) ?? false;
   }
 
   @override
@@ -82,12 +82,12 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
 
   @override
   Future<bool> useFlagShowWhenLocked(bool flag) async {
-    return await _handleException('useFlagShowWhenLocked', {flag: flag});
+    return (await _handleException<bool>('useFlagShowWhenLocked', {'flag': flag})) ?? false;
   }
 
   @override
   Future<void> openCSPage(String userId) async {
-    return await _handleException('openCSPage', {userId: userId});
+    return await _handleException('openCSPage', {'userId': userId});
   }
 
   @override
