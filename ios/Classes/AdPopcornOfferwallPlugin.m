@@ -14,7 +14,6 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   
-  NSLog(@"[iOS] AdPopcornOfferwallPlugin: method=%@", call.method);
   NSDictionary* arguments = call.arguments;
   
   if ([@"setAppKeyHashKey" isEqualToString:call.method]) {
@@ -41,11 +40,14 @@
                                         details:nil]);
     }
   } else if ([@"setUserId" isEqualToString:call.method]) {
-    
+    NSString* userId = arguments[@"userId"];
+    NSLog(@"[iOS] AdPopcornOfferwallPlugin: setUserId: userId=%@", userId);
+    [AdPopcornOfferwall setUserId: userId];
   } else if ([@"openOfferWall" isEqualToString:call.method]) {
     UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     [AdPopcornOfferwall openOfferWallWithViewController:viewController delegate:self userDataDictionaryForFilter:nil];
   } else {
+    NSLog(@"[iOS] AdPopcornOfferwallPlugin: method=%@", call.method);
     return result(FlutterMethodNotImplemented);
   }
   return result(nil);
