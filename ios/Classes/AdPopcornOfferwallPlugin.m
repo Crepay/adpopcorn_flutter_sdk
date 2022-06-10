@@ -1,14 +1,14 @@
-#import "AdpopcornFlutterSdkPlugin.h"
+#import "AdPopcornOfferwallPlugin.h"
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdPopcornOfferwall/AdPopcornOfferwall.h>
 
-@implementation AdpopcornFlutterSdkPlugin
+@implementation AdPopcornOfferwallPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"adpopcorn_flutter_sdk"
             binaryMessenger:[registrar messenger]];
-  AdpopcornFlutterSdkPlugin* instance = [[AdpopcornFlutterSdkPlugin alloc] init];
+  AdPopcornOfferwallPlugin* instance = [[AdPopcornOfferwallPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
