@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:developer';
 
-import 'package:adpopcorn_flutter_sdk/adpopcorn_flutter_sdk.dart';
+import 'package:adpopcorn_flutter_sdk/adpopcorn_offerwall.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,11 +33,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initEventListener() {
-    AdpopcornFlutterSdk.setOnAgreePrivacy(
+    AdPopcornOfferwall.setOnAgreePrivacy(
         () => showSnackBar('onAgreePrivacy()'));
-    AdpopcornFlutterSdk.setOnDisagreePrivacy(
+    AdPopcornOfferwall.setOnDisagreePrivacy(
         () => showSnackBar('onDisagreePrivacy()'));
-    AdpopcornFlutterSdk.setOnClosedOfferWallPage(
+    AdPopcornOfferwall.setOnClosedOfferWallPage(
         () => showSnackBar('onClosedOfferWallPage()'));
   }
 
@@ -63,11 +61,11 @@ class _MyAppState extends State<MyApp> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Center(
               child: Align(
-                alignment: Alignment.topCenter,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-            children: [
+            alignment: Alignment.topCenter,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
                   const SizedBox(height: 32),
                   SizedBox(
                     width: 200,
@@ -84,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () async {
                       userId = textControllerUserId.text;
                       log('setUserId() id=$userId');
-                      await AdpopcornFlutterSdk.setUserId(userId);
+                      await AdPopcornOfferwall.setUserId(userId);
                       showSnackBar('setUserId()');
                     },
                     child: const Text('setUserId()'),
@@ -93,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('openOfferWall()');
-                      await AdpopcornFlutterSdk.openOfferWall();
+                      await AdPopcornOfferwall.openOfferWall();
                     },
                     child: const Text('openOfferWall()'),
                   ),
@@ -101,7 +99,7 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('useFlagShowWhenLocked()');
-                      await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
+                      await AdPopcornOfferwall.useFlagShowWhenLocked(false);
                       showSnackBar('useFlagShowWhenLocked()');
                     },
                     child: const Text('useFlagShowWhenLocked()'),
@@ -110,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('openCSPage() userId=$userId');
-                      await AdpopcornFlutterSdk.openCSPage(userId);
+                      await AdPopcornOfferwall.openCSPage(userId);
                     },
                     child: const Text('openCSPage()'),
                   ),
@@ -118,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('getEarnableTotalRewardInfo()');
-                      await AdpopcornFlutterSdk.getEarnableTotalRewardInfo(
+                      await AdPopcornOfferwall.getEarnableTotalRewardInfo(
                           (queryResult, totalCount, totalReward) {
                         showSnackBar(
                             'onGetEarnableTotalRewardInfo() queryResult=$queryResult, totalCount=$totalCount, totalReward=$totalReward');
@@ -130,15 +128,17 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('loadPopupAd()');
-                      await AdpopcornFlutterSdk.loadPopupAd(
+                      await AdPopcornOfferwall.loadPopupAd(
                         onLoadPopupAdSuccess: () =>
                             showSnackBar('onLoadPopupAdSuccess()'),
-                        onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                            'onLoadPopupAdFailure() errorCode=$errorCode, errorMessage=$errorMessage'),
+                        onLoadPopupAdFailure: (errorCode, errorMessage) =>
+                            showSnackBar(
+                                'onLoadPopupAdFailure() errorCode=$errorCode, errorMessage=$errorMessage'),
                         onShowPopupAdSuccess: () =>
                             showSnackBar('onShowPopupAdSuccess()'),
-                        onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                            'onShowPopupAdFailure()) errorCode=$errorCode, errorMessage=$errorMessage'),
+                        onShowPopupAdFailure: (errorCode, errorMessage) =>
+                            showSnackBar(
+                                'onShowPopupAdFailure()) errorCode=$errorCode, errorMessage=$errorMessage'),
                         onPopupAdClose: () => showSnackBar('onPopupAdClose()'),
                       );
                     },
@@ -148,14 +148,14 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('showPopupAd()');
-                      await AdpopcornFlutterSdk.showPopupAd();
+                      await AdPopcornOfferwall.showPopupAd();
                     },
                     child: const Text('showPopupAd()'),
                   ),
-            ],
-          ),
-                ),
-              )),
+                ],
+              ),
+            ),
+          )),
         ),
       ),
     );

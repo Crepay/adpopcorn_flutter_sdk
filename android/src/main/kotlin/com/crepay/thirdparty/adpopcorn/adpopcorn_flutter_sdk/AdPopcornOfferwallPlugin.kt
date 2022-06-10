@@ -18,10 +18,10 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 private const val CHANNEL_NAME = "adpopcorn_flutter_sdk"
-private const val TAG: String = "[Android] AdpopcornFlutterSdkPlugin";
+private const val TAG: String = "[Android] AdPopcornOfferwallPlugin";
 
-/** AdpopcornFlutterSdkPlugin */
-class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
+/** AdPopcornOfferwallPlugin */
+class AdPopcornOfferwallPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     private lateinit var channel: MethodChannel
     private lateinit var context: Context
