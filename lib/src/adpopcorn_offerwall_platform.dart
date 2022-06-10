@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'adpopcorn_flutter_sdk_method_channel.dart';
+import 'adpopcorn_offerwall_android.dart';
 
 typedef OnGetEarnableTotalRewardInfo = void Function(
     bool queryResult, int totalCount, String totalReward);
@@ -8,26 +10,26 @@ typedef NoArgumentListener = void Function();
 typedef PopupAdErrorListener = void Function(
     int errorCode, String errorMessage);
 
-abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
-  /// Constructs a AdpopcornFlutterSdkPlatform.
-  AdpopcornFlutterSdkPlatform() : super(token: _token);
+abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
+  AdPopcornOfferwallPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
-  static AdpopcornFlutterSdkPlatform _instance =
-      MethodChannelAdpopcornFlutterSdk();
+  static final AdPopcornOfferwallPlatform instance =
+      _instanceByPlatform();
 
-  /// The default instance of [AdpopcornFlutterSdkPlatform] to use.
-  ///
-  /// Defaults to [MethodChannelAdpopcornFlutterSdk].
-  static AdpopcornFlutterSdkPlatform get instance => _instance;
-
-  /// Platform-specific implementations should set this with their own
-  /// platform-specific class that extends [AdpopcornFlutterSdkPlatform] when
-  /// they register themselves.
-  static set instance(AdpopcornFlutterSdkPlatform instance) {
-    PlatformInterface.verifyToken(instance, _token);
-    _instance = instance;
+  static AdPopcornOfferwallPlatform _instanceByPlatform() {
+    AdPopcornOfferwallPlatform? instance;
+    if (Platform.isAndroid) {
+      instance = AdPopcornOfferwallAndroid();
+    } else if (Platform.isIOS) {
+      instance = AdPopcornOfferwallAndroid();
+    } else {
+      throw UnsupportedError(
+          '\'${Platform.operatingSystem}\' is not supported.');
+    }
+    PlatformInterface.verify(instance, _token);
+    return instance;
   }
 
   Future<void> setUserId(String userId) {
@@ -74,12 +76,10 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
     PopupAdErrorListener? onShowPopupAdFailure,
     NoArgumentListener? onPopupAdClose,
   }) {
-    throw UnimplementedError(
-        'loadPopupAd() has not been implemented.');
+    throw UnimplementedError('loadPopupAd() has not been implemented.');
   }
 
   Future<void> showPopupAd() {
     throw UnimplementedError('showPopupAd() has not been implemented.');
   }
-
 }

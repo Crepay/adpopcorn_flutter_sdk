@@ -3,12 +3,11 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import 'adpopcorn_flutter_sdk_platform_interface.dart';
+import 'adpopcorn_offerwall_platform.dart';
 
 const channelName = 'adpopcorn_flutter_sdk';
 
-/// An implementation of [AdpopcornFlutterSdkPlatform] that uses method channels.
-class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
+class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
   final MethodChannel methodChannel;
@@ -17,7 +16,7 @@ class MethodChannelAdpopcornFlutterSdk extends AdpopcornFlutterSdkPlatform {
   final popupAdErrorListeners = <String, PopupAdErrorListener?>{};
   OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
 
-  MethodChannelAdpopcornFlutterSdk()
+  AdPopcornOfferwallAndroid()
       : methodChannel = const MethodChannel(channelName) {
     methodChannel.setMethodCallHandler(_handleMethodCall);
   }
