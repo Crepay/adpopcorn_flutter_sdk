@@ -2,11 +2,16 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
 # Run `pod lib lint adpopcorn_flutter_sdk.podspec` to validate before publishing.
 #
+require 'yaml'
+
+pubspec = YAML.load_file(File.join('..', 'pubspec.yaml'))
+library_version = pubspec['version'].gsub('+', '-')
+
 Pod::Spec.new do |s|
   s.name             = 'adpopcorn_flutter_sdk'
-  s.version          = '0.1.0'
-  s.summary          = 'AdPopcorn SDK for flutter'
-  s.homepage         = 'https://www.crepay.com'
+  s.version          = library_version
+  s.summary          = 'AdPopcorn Flutter SDK'
+  s.homepage         = 'https://github.com/Crepay/adpopcorn_flutter_sdk'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Crepay, Inc.' => 'neo.kim@crepay.com' }
   s.source           = { :path => '.' }
