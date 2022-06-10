@@ -1,4 +1,6 @@
 #import "AdpopcornFlutterSdkPlugin.h"
+#import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 
 @implementation AdpopcornFlutterSdkPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
