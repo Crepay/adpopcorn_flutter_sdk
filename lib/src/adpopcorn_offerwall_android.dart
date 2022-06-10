@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'adpopcorn_offerwall_platform.dart';

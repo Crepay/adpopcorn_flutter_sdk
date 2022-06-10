@@ -16,12 +16,16 @@ typedef PopupAdErrorListener = void Function(
 
 const channelName = 'adpopcorn_flutter_sdk';
 
-abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
+enum AdPopcornLogLevel {
+  info,
+  debug,
+  trace,
+}
 
+abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
   static final Object _token = Object();
 
-  static final AdPopcornOfferwallPlatform instance =
-      _instanceByPlatform();
+  static final AdPopcornOfferwallPlatform instance = _instanceByPlatform();
 
   @protected
   final MethodChannel methodChannel = const MethodChannel(channelName);
@@ -43,7 +47,8 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
   }
 
   @protected
-  Future<T?> invokeMethodAndHandleException<T>(String methodName, [dynamic arguments]) async {
+  Future<T?> invokeMethodAndHandleException<T>(String methodName,
+      [dynamic arguments]) async {
     try {
       return await methodChannel.invokeMethod<T>(methodName, arguments);
     } catch (e, s) {
@@ -54,6 +59,15 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
 
   Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
     throw UnimplementedError('setAppKeyHashKey() has not been implemented.');
+  }
+
+  Future<void> useIgaworksRewardServer(bool flag) async {
+    throw UnimplementedError(
+        'useIgaworksRewardServer() has not been implemented.');
+  }
+
+  Future<void> setLogLevel(AdPopcornLogLevel level) async {
+    throw UnimplementedError('setLogLevel() has not been implemented.');
   }
 
   Future<void> setUserId(String userId) {

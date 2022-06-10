@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:adpopcorn_flutter_sdk/adpopcorn_offerwall.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,28 +20,42 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  final random = math.Random();
+  final textControllerAppKey = TextEditingController();
+  final textControllerHashKey = TextEditingController();
   final textControllerUserId = TextEditingController();
   String userId = '';
 
   @override
   void initState() {
     super.initState();
-    initEventListener();
+    if (Platform.isAndroid) {
+      initAndroid();
+    } else if (Platform.isIOS) {
+      initIOS();
+    }
   }
 
   @override
   void dispose() {
+    textControllerAppKey.dispose();
+    textControllerHashKey.dispose();
     textControllerUserId.dispose();
     super.dispose();
   }
 
-  void initEventListener() {
+  void initAndroid() {
     AdPopcornOfferwall.setOnAgreePrivacy(
         () => showSnackBar('onAgreePrivacy()'));
     AdPopcornOfferwall.setOnDisagreePrivacy(
         () => showSnackBar('onDisagreePrivacy()'));
     AdPopcornOfferwall.setOnClosedOfferWallPage(
         () => showSnackBar('onClosedOfferWallPage()'));
+  }
+
+  void initIOS() {
+    // AdPopcornOfferwall.setOnClosedOfferWallPage(
+    //     () => showSnackBar('onClosedOfferWallPage()'));
   }
 
   void showSnackBar(String text) {
@@ -67,6 +84,65 @@ class _MyAppState extends State<MyApp> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const SizedBox(height: 32),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          controller: textControllerAppKey,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'App key',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      SizedBox(
+                        width: 100,
+                        child: TextFormField(
+                          controller: textControllerHashKey,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Hash key',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final appKey = textControllerAppKey.text;
+                      final hashKey = textControllerHashKey.text;
+                      log('setAppKeyHashKey() appKey=$appKey, hashKey=$hashKey');
+                      await AdPopcornOfferwall.setAppKeyHashKey(appKey, hashKey);
+                      showSnackBar('setAppKeyHashKey()');
+                    },
+                    child: const Text('setAppKeyHashKey()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final flag = random.nextBool();
+                      log('useIgaworksRewardServer() flag=$flag');
+                      await AdPopcornOfferwall.useIgaworksRewardServer(flag);
+                      showSnackBar('useIgaworksRewardServer($flag)');
+                    },
+                    child: const Text('useIgaworksRewardServer()'),
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final index = random.nextInt(AdPopcornLogLevel.values.length);
+                      final level = AdPopcornLogLevel.values[index];
+                      log('setLogLevel() level=$level');
+                      await AdPopcornOfferwall.setLogLevel(level);
+                      showSnackBar('setLogLevel(${describeEnum(level)})');
+                    },
+                    child: const Text('setLogLevel()'),
+                  ),
+                  const SizedBox(height: 8),
                   SizedBox(
                     width: 200,
                     child: TextFormField(
@@ -98,9 +174,10 @@ class _MyAppState extends State<MyApp> {
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () async {
-                      log('useFlagShowWhenLocked()');
-                      await AdPopcornOfferwall.useFlagShowWhenLocked(false);
-                      showSnackBar('useFlagShowWhenLocked()');
+                      final flag = random.nextBool();
+                      log('useFlagShowWhenLocked() flag=$flag');
+                      await AdPopcornOfferwall.useFlagShowWhenLocked(flag);
+                      showSnackBar('useFlagShowWhenLocked($flag)');
                     },
                     child: const Text('useFlagShowWhenLocked()'),
                   ),

@@ -1,8 +1,19 @@
 import 'src/adpopcorn_offerwall_platform.dart';
 
+export 'src/adpopcorn_offerwall_platform.dart' show AdPopcornLogLevel;
+
 class AdPopcornOfferwall {
   static Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
-    return AdPopcornOfferwallPlatform.instance.setAppKeyHashKey(appKey, hashKey);
+    return AdPopcornOfferwallPlatform.instance
+        .setAppKeyHashKey(appKey, hashKey);
+  }
+
+  static Future<void> useIgaworksRewardServer(bool flag) async {
+    return AdPopcornOfferwallPlatform.instance.useIgaworksRewardServer(flag);
+  }
+
+  static Future<void> setLogLevel(AdPopcornLogLevel level) async {
+    return AdPopcornOfferwallPlatform.instance.setLogLevel(level);
   }
 
   static Future<void> setUserId(String userId) async {

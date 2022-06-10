@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'adpopcorn_offerwall_platform.dart';
 
 class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
-
   final noArgListeners = <String, NoArgumentListener?>{};
   OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
 
@@ -31,12 +28,28 @@ class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
 
   @override
   Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
-
+    return await invokeMethodAndHandleException('setAppKeyHashKey', {
+      'appKey': appKey,
+      'hashKey': hashKey,
+    });
   }
 
-    @override
+  @override
+  Future<void> useIgaworksRewardServer(bool flag) async {
+    return await invokeMethodAndHandleException(
+        'useIgaworksRewardServer', {'flag': flag});
+  }
+
+  @override
+  Future<void> setLogLevel(AdPopcornLogLevel level) async {
+    return await invokeMethodAndHandleException(
+        'setLogLevel', {'level': describeEnum(level)});
+  }
+
+  @override
   Future<void> setUserId(String userId) async {
-    return await invokeMethodAndHandleException('setUserId', {'userId': userId});
+    return await invokeMethodAndHandleException(
+        'setUserId', {'userId': userId});
   }
 
   @override
@@ -44,12 +57,10 @@ class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
     return await invokeMethodAndHandleException('openOfferWall');
   }
 
-
   @override
   Future<void> getEarnableTotalRewardInfo(
       OnGetEarnableTotalRewardInfo callback) async {
     onGetEarnableTotalRewardInfo = callback;
     return await invokeMethodAndHandleException('getEarnableTotalRewardInfo');
   }
-
 }
