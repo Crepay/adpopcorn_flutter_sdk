@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'adpopcorn_offerwall_android.dart';
+import 'adpopcorn_offerwall_ios.dart';
 
 typedef OnGetEarnableTotalRewardInfo = void Function(
     bool queryResult, int totalCount, String totalReward);
@@ -23,13 +24,17 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
     if (Platform.isAndroid) {
       instance = AdPopcornOfferwallAndroid();
     } else if (Platform.isIOS) {
-      instance = AdPopcornOfferwallAndroid();
+      instance = AdPopcornOfferwallIOS();
     } else {
       throw UnsupportedError(
           '\'${Platform.operatingSystem}\' is not supported.');
     }
     PlatformInterface.verify(instance, _token);
     return instance;
+  }
+
+  Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
+    throw UnimplementedError('setAppKeyHashKey() has not been implemented.');
   }
 
   Future<void> setUserId(String userId) {

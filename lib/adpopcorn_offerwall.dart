@@ -1,6 +1,10 @@
 import 'src/adpopcorn_offerwall_platform.dart';
 
 class AdPopcornOfferwall {
+  static Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
+    return AdPopcornOfferwallPlatform.instance.setAppKeyHashKey(appKey, hashKey);
+  }
+
   static Future<void> setUserId(String userId) async {
     return AdPopcornOfferwallPlatform.instance.setUserId(userId);
   }

@@ -7,7 +7,7 @@ import 'adpopcorn_offerwall_platform.dart';
 
 const channelName = 'adpopcorn_flutter_sdk';
 
-class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
+class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
   @visibleForTesting
   final MethodChannel methodChannel;
 
@@ -15,7 +15,7 @@ class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
   final popupAdErrorListeners = <String, PopupAdErrorListener?>{};
   OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
 
-  AdPopcornOfferwallAndroid()
+  AdPopcornOfferwallIOS()
       : methodChannel = const MethodChannel(channelName) {
     methodChannel.setMethodCallHandler(_handleMethodCall);
   }
@@ -30,6 +30,11 @@ class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
   }
 
   @override
+  Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
+
+  }
+
+    @override
   Future<void> setUserId(String userId) async {
     return await _handleException('setUserId', {'userId': userId});
   }
