@@ -1,5 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'adpopcorn_offerwall_android.dart';
@@ -11,13 +14,19 @@ typedef NoArgumentListener = void Function();
 typedef PopupAdErrorListener = void Function(
     int errorCode, String errorMessage);
 
+const channelName = 'adpopcorn_flutter_sdk';
+
 abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
-  AdPopcornOfferwallPlatform() : super(token: _token);
 
   static final Object _token = Object();
 
   static final AdPopcornOfferwallPlatform instance =
       _instanceByPlatform();
+
+  @protected
+  final MethodChannel methodChannel = const MethodChannel(channelName);
+
+  AdPopcornOfferwallPlatform() : super(token: _token);
 
   static AdPopcornOfferwallPlatform _instanceByPlatform() {
     AdPopcornOfferwallPlatform? instance;
@@ -31,6 +40,16 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
     }
     PlatformInterface.verify(instance, _token);
     return instance;
+  }
+
+  @protected
+  Future<T?> invokeMethodAndHandleException<T>(String methodName, [dynamic arguments]) async {
+    try {
+      return await methodChannel.invokeMethod<T>(methodName, arguments);
+    } catch (e, s) {
+      log('Exception during invoking \'$methodName\'', error: e, stackTrace: s);
+      return Future<T?>(() => null);
+    }
   }
 
   Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
