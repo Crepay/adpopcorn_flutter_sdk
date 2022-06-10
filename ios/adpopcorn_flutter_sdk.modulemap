@@ -1,0 +1,8 @@
+framework module adpopcorn_flutter_sdk {
+  umbrella header "adpopcorn_flutter_sdk-umbrella.h"
+
+  header "asdfAdpopcornFlutterSdkPlugin-Bridging-Header.h"
+
+  export *
+  module * { export * }
+}
