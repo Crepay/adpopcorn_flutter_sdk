@@ -48,17 +48,15 @@ class AdpopcornFlutterSdkPlugin : FlutterPlugin, MethodCallHandler, ActivityAwar
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        if (call.method == "getPlatformVersion") {
-            result.success("Android ${android.os.Build.VERSION.RELEASE}")
-        } else if (call.method == "setUserId") {
+        if (call.method == "setUserId") {
             Adpopcorn.setUserId(activity, call.argument("userId"))
-            result.success(true)
+            result.success(null)
         } else if (call.method == "openOfferWall") {
             Adpopcorn.openOfferWall(activity)
             result.success(null)
         } else if (call.method == "useFlagShowWhenLocked") {
             AdpopcornExtension.useFlagShowWhenLocked(activity, call.argument("flag") ?: false)
-            result.success(true)
+            result.success(null)
         } else if (call.method == "openCSPage") {
             AdpopcornExtension.openCSPage(activity, call.argument("userId"))
             result.success(null)

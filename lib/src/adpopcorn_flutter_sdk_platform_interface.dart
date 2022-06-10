@@ -30,7 +30,7 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<bool> setUserId(String userId) {
+  Future<void> setUserId(String userId) {
     throw UnimplementedError('setUserId() has not been implemented.');
   }
 
@@ -52,7 +52,7 @@ abstract class AdpopcornFlutterSdkPlatform extends PlatformInterface {
         'setOnClosedOfferWallPage() has not been implemented.');
   }
 
-  Future<bool> useFlagShowWhenLocked(bool flag) {
+  Future<void> useFlagShowWhenLocked(bool flag) {
     throw UnimplementedError(
         'useFlagShowWhenLocked() has not been implemented.');
   }

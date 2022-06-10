@@ -36,11 +36,11 @@ class _MyAppState extends State<MyApp> {
 
   void initEventListener() {
     AdpopcornFlutterSdk.setOnAgreePrivacy(
-        () => showSnackBar('onAgreePrivacy!'));
+        () => showSnackBar('onAgreePrivacy()'));
     AdpopcornFlutterSdk.setOnDisagreePrivacy(
-        () => showSnackBar('onDisagreePrivacy!'));
+        () => showSnackBar('onDisagreePrivacy()'));
     AdpopcornFlutterSdk.setOnClosedOfferWallPage(
-        () => showSnackBar('onClosedOfferWallPage!'));
+        () => showSnackBar('onClosedOfferWallPage()'));
   }
 
   void showSnackBar(String text) {
@@ -84,8 +84,8 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () async {
                       userId = textControllerUserId.text;
                       log('setUserId() id=$userId');
-                      final result = await AdpopcornFlutterSdk.setUserId(userId);
-                      showSnackBar('setUserId() $result');
+                      await AdpopcornFlutterSdk.setUserId(userId);
+                      showSnackBar('setUserId()');
                     },
                     child: const Text('setUserId()'),
                   ),
@@ -101,8 +101,8 @@ class _MyAppState extends State<MyApp> {
                   ElevatedButton(
                     onPressed: () async {
                       log('useFlagShowWhenLocked()');
-                      final result = await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
-                      showSnackBar('useFlagShowWhenLocked() $result');
+                      await AdpopcornFlutterSdk.useFlagShowWhenLocked(false);
+                      showSnackBar('useFlagShowWhenLocked()');
                     },
                     child: const Text('useFlagShowWhenLocked()'),
                   ),
@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
                       await AdpopcornFlutterSdk.getEarnableTotalRewardInfo(
                           (queryResult, totalCount, totalReward) {
                         showSnackBar(
-                            'queryResult=$queryResult, totalCount=$totalCount, totalReward=$totalReward');
+                            'onGetEarnableTotalRewardInfo() queryResult=$queryResult, totalCount=$totalCount, totalReward=$totalReward');
                       });
                     },
                     child: const Text('getEarnableTotalRewardInfo()'),
@@ -132,14 +132,14 @@ class _MyAppState extends State<MyApp> {
                       log('loadPopupAd()');
                       await AdpopcornFlutterSdk.loadPopupAd(
                         onLoadPopupAdSuccess: () =>
-                            showSnackBar('onLoadPopupAdSuccess'),
+                            showSnackBar('onLoadPopupAdSuccess()'),
                         onLoadPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                            'onLoadPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
+                            'onLoadPopupAdFailure() errorCode=$errorCode, errorMessage=$errorMessage'),
                         onShowPopupAdSuccess: () =>
-                            showSnackBar('onShowPopupAdSuccess'),
+                            showSnackBar('onShowPopupAdSuccess()'),
                         onShowPopupAdFailure: (errorCode, errorMessage) => showSnackBar(
-                            'onShowPopupAdFailure: errorCode=$errorCode, errorMessage=$errorMessage'),
-                        onPopupAdClose: () => showSnackBar('onPopupAdClose'),
+                            'onShowPopupAdFailure()) errorCode=$errorCode, errorMessage=$errorMessage'),
+                        onPopupAdClose: () => showSnackBar('onPopupAdClose()'),
                       );
                     },
                     child: const Text('loadPopupAd()'),
