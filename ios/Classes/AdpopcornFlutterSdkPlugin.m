@@ -1,6 +1,7 @@
 #import "AdpopcornFlutterSdkPlugin.h"
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <AdPopcornOfferwall/AdPopcornOfferwall.h>
 
 @implementation AdpopcornFlutterSdkPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -14,9 +15,15 @@
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
+  } else if ([@"setUserId" isEqualToString:call.method]) {
+    
+  } else if ([@"openOfferWall" isEqualToString:call.method]) {
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    [AdPopcornOfferwall openOfferWallWithViewController:viewController delegate:self userDataDictionaryForFilter:nil];
   } else {
     result(FlutterMethodNotImplemented);
   }
+
 }
 
 @end
