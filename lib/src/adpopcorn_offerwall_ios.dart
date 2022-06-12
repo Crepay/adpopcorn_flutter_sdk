@@ -58,6 +58,26 @@ class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
   }
 
   @override
+  Future<void> setOnWillOpenOfferWall(NoArgumentListener listener) async {
+    noArgListeners['onWillOpenOfferWall'] = listener;
+  }
+
+  @override
+  Future<void> setOnDidOpenOfferWall(NoArgumentListener listener) async {
+    noArgListeners['onDidOpenOfferWall'] = listener;
+  }
+
+  @override
+  Future<void> setOnWillCloseOfferWall(NoArgumentListener listener) async {
+    noArgListeners['onWillCloseOfferWall'] = listener;
+  }
+
+  @override
+  Future<void> setOnDidCloseOfferWall(NoArgumentListener listener) async {
+    noArgListeners['onDidCloseOfferWall'] = listener;
+  }
+
+  @override
   Future<void> getEarnableTotalRewardInfo(
       OnGetEarnableTotalRewardInfo callback) async {
     onGetEarnableTotalRewardInfo = callback;

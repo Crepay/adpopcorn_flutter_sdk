@@ -54,8 +54,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   void initIOS() {
-    // AdPopcornOfferwall.setOnClosedOfferWallPage(
-    //     () => showSnackBar('onClosedOfferWallPage()'));
+    AdPopcornOfferwall.setOnWillOpenOfferWall(
+        () => showSnackBar('setOnWillOpenOfferWall()'));
+    AdPopcornOfferwall.setOnDidOpenOfferWall(
+        () => showSnackBar('setOnDidOpenOfferWall()'));
+    AdPopcornOfferwall.setOnWillCloseOfferWall(
+        () => showSnackBar('setOnWillCloseOfferWall()'));
+    AdPopcornOfferwall.setOnDidCloseOfferWall(
+        () => showSnackBar('setOnDidCloseOfferWall()'));
   }
 
   void showSnackBar(String text) {
@@ -116,7 +122,8 @@ class _MyAppState extends State<MyApp> {
                       final appKey = textControllerAppKey.text;
                       final hashKey = textControllerHashKey.text;
                       log('setAppKeyHashKey() appKey=$appKey, hashKey=$hashKey');
-                      await AdPopcornOfferwall.setAppKeyHashKey(appKey, hashKey);
+                      await AdPopcornOfferwall.setAppKeyHashKey(
+                          appKey, hashKey);
                       showSnackBar('setAppKeyHashKey()');
                     },
                     child: const Text('setAppKeyHashKey()'),
@@ -134,7 +141,8 @@ class _MyAppState extends State<MyApp> {
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () async {
-                      final index = random.nextInt(AdPopcornLogLevel.values.length);
+                      final index =
+                          random.nextInt(AdPopcornLogLevel.values.length);
                       final level = AdPopcornLogLevel.values[index];
                       log('setLogLevel() level=$level');
                       await AdPopcornOfferwall.setLogLevel(level);

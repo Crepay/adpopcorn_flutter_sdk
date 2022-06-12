@@ -38,6 +38,23 @@ class AdPopcornOfferwall {
         .setOnClosedOfferWallPage(listener);
   }
 
+  static Future<void> setOnWillOpenOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnWillOpenOfferWall(listener);
+  }
+
+  static Future<void> setOnDidOpenOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnDidOpenOfferWall(listener);
+  }
+
+  static Future<void> setOnWillCloseOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance
+        .setOnWillCloseOfferWall(listener);
+  }
+
+  static Future<void> setOnDidCloseOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnDidCloseOfferWall(listener);
+  }
+
   static Future<void> useFlagShowWhenLocked(bool flag) async {
     return AdPopcornOfferwallPlatform.instance.useFlagShowWhenLocked(flag);
   }

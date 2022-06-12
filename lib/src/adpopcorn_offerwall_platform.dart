@@ -92,6 +92,26 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
         'setOnClosedOfferWallPage() has not been implemented.');
   }
 
+  Future<void> setOnWillOpenOfferWall(NoArgumentListener listener) {
+    throw UnimplementedError(
+        'setOnWillOpenOfferWall() has not been implemented.');
+  }
+
+  Future<void> setOnDidOpenOfferWall(NoArgumentListener listener) {
+    throw UnimplementedError(
+        'setOnDidOpenOfferWall() has not been implemented.');
+  }
+
+  Future<void> setOnWillCloseOfferWall(NoArgumentListener listener) {
+    throw UnimplementedError(
+        'setOnWillCloseOfferWall() has not been implemented.');
+  }
+
+  Future<void> setOnDidCloseOfferWall(NoArgumentListener listener) {
+    throw UnimplementedError(
+        'setOnDidCloseOfferWall() has not been implemented.');
+  }
+
   Future<void> useFlagShowWhenLocked(bool flag) {
     throw UnimplementedError(
         'useFlagShowWhenLocked() has not been implemented.');
