@@ -27,8 +27,8 @@ class AdPopcornOfferwallIOS extends AdPopcornOfferwallPlatform {
   }
 
   @override
-  Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
-    return await invokeMethodAndHandleException('setAppKeyHashKey', {
+  Future<void> setAppKeyAndHashKey(String appKey, String hashKey) async {
+    return await invokeMethodAndHandleException('setAppKeyAndHashKey', {
       'appKey': appKey,
       'hashKey': hashKey,
     });

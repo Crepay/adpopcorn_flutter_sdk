@@ -3,9 +3,9 @@ import 'src/adpopcorn_offerwall_platform.dart';
 export 'src/adpopcorn_offerwall_platform.dart' show AdPopcornLogLevel;
 
 class AdPopcornOfferwall {
-  static Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
+  static Future<void> setAppKeyAndHashKey(String appKey, String hashKey) async {
     return AdPopcornOfferwallPlatform.instance
-        .setAppKeyHashKey(appKey, hashKey);
+        .setAppKeyAndHashKey(appKey, hashKey);
   }
 
   static Future<void> useIgaworksRewardServer(bool flag) async {

@@ -57,8 +57,8 @@ abstract class AdPopcornOfferwallPlatform extends PlatformInterface {
     }
   }
 
-  Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
-    throw UnimplementedError('setAppKeyHashKey() has not been implemented.');
+  Future<void> setAppKeyAndHashKey(String appKey, String hashKey) async {
+    throw UnimplementedError('setAppKeyAndHashKey() has not been implemented.');
   }
 
   Future<void> useIgaworksRewardServer(bool flag) async {

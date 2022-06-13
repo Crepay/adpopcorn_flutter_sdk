@@ -158,11 +158,11 @@ class _MyAppState extends State<MyApp> {
           onPressed: () async {
             final appKey = textControllerAppKey.text;
             final hashKey = textControllerHashKey.text;
-            log('setAppKeyHashKey() appKey=$appKey, hashKey=$hashKey');
-            await AdPopcornOfferwall.setAppKeyHashKey(appKey, hashKey);
-            showSnackBar('setAppKeyHashKey()');
+            log('setAppKeyAndHashKey() appKey=$appKey, hashKey=$hashKey');
+            await AdPopcornOfferwall.setAppKeyAndHashKey(appKey, hashKey);
+            showSnackBar('setAppKeyAndHashKey()');
           },
-          child: const Text('setAppKeyHashKey()'),
+          child: const Text('setAppKeyAndHashKey()'),
         ),
       ],
     );

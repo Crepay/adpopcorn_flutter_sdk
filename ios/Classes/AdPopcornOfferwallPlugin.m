@@ -22,10 +22,10 @@
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   NSDictionary* arguments = call.arguments;
   
-  if ([@"setAppKeyHashKey" isEqualToString:call.method]) {
+  if ([@"setAppKeyAndHashKey" isEqualToString:call.method]) {
     NSString* appKey = arguments[@"appKey"];
     NSString* hashKey = arguments[@"hashKey"];
-    NSLog(@"[iOS] AdPopcornOfferwallPlugin: setAppKeyHashKey: appKey=%@, hashKey=%@", appKey, hashKey);
+    NSLog(@"[iOS] AdPopcornOfferwallPlugin: setAppKeyAndHashKey: appKey=%@, hashKey=%@", appKey, hashKey);
     [AdPopcornOfferwall setAppKey:appKey andHashKey:hashKey];
   } else if ([@"useIgaworksRewardServer" isEqualToString:call.method]) {
     BOOL flag = [arguments[@"flag"] boolValue];
