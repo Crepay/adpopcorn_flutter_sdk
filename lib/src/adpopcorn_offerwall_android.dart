@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'adpopcorn_offerwall_platform.dart';
@@ -8,61 +5,23 @@ import 'adpopcorn_offerwall_platform.dart';
 const channelName = 'adpopcorn_flutter_sdk';
 
 class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
-  /// The method channel used to interact with the native platform.
-  @visibleForTesting
-  final MethodChannel methodChannel;
 
   final noArgListeners = <String, NoArgumentListener?>{};
   final popupAdErrorListeners = <String, PopupAdErrorListener?>{};
   OnGetEarnableTotalRewardInfo? onGetEarnableTotalRewardInfo;
 
-  AdPopcornOfferwallAndroid()
-      : methodChannel = const MethodChannel(channelName) {
-    methodChannel.setMethodCallHandler(_handleMethodCall);
+  AdPopcornOfferwallAndroid() {
+    methodChannel.setMethodCallHandler(handleMethodCall);
   }
 
-  Future<T?> _handleException<T>(String methodName, [dynamic arguments]) async {
-    try {
-      return await methodChannel.invokeMethod<T>(methodName, arguments);
-    } catch (e, s) {
-      log('Exception during invoking \'$methodName\'', error: e, stackTrace: s);
-      return Future<T?>(() => null);
-    }
-  }
-
-  @override
-  Future<void> setUserId(String userId) async {
-    return await _handleException('setUserId', {'userId': userId});
-  }
-
-  @override
-  Future<void> openOfferWall() async {
-    return await _handleException('openOfferWall');
-  }
-
-  @override
-  Future<void> setOnAgreePrivacy(NoArgumentListener listener) async {
-    noArgListeners['onAgreePrivacy'] = listener;
-  }
-
-  @override
-  Future<void> setOnDisagreePrivacy(NoArgumentListener listener) async {
-    noArgListeners['onDisagreePrivacy'] = listener;
-  }
-
-  @override
-  Future<void> setOnClosedOfferWallPage(NoArgumentListener listener) async {
-    noArgListeners['onClosedOfferWallPage'] = listener;
-  }
-
-  Future<void> _handleMethodCall(MethodCall call) async {
+  Future<void> handleMethodCall(MethodCall call) async {
     NoArgumentListener? noArgListener = noArgListeners[call.method];
     if (noArgListener != null) {
       return noArgListener();
     }
 
     PopupAdErrorListener? popupAdErrorListener =
-        popupAdErrorListeners[call.method];
+    popupAdErrorListeners[call.method];
     if (popupAdErrorListener != null) {
       return popupAdErrorListener(
         call.arguments['errorCode'],
@@ -80,20 +39,45 @@ class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
   }
 
   @override
+  Future<void> setUserId(String userId) async {
+    return await invokeMethodAndHandleException('setUserId', {'userId': userId});
+  }
+
+  @override
+  Future<void> openOfferWall() async {
+    return await invokeMethodAndHandleException('openOfferWall');
+  }
+
+  @override
+  Future<void> setOnAgreePrivacy(NoArgumentListener listener) async {
+    noArgListeners['onAgreePrivacy'] = listener;
+  }
+
+  @override
+  Future<void> setOnDisagreePrivacy(NoArgumentListener listener) async {
+    noArgListeners['onDisagreePrivacy'] = listener;
+  }
+
+  @override
+  Future<void> setOnClosedOfferWallPage(NoArgumentListener listener) async {
+    noArgListeners['onClosedOfferWallPage'] = listener;
+  }
+
+  @override
   Future<void> useFlagShowWhenLocked(bool flag) async {
-    return await _handleException('useFlagShowWhenLocked', {'flag': flag});
+    return await invokeMethodAndHandleException('useFlagShowWhenLocked', {'flag': flag});
   }
 
   @override
   Future<void> openCSPage(String userId) async {
-    return await _handleException('openCSPage', {'userId': userId});
+    return await invokeMethodAndHandleException('openCSPage', {'userId': userId});
   }
 
   @override
   Future<void> getEarnableTotalRewardInfo(
       OnGetEarnableTotalRewardInfo callback) async {
     onGetEarnableTotalRewardInfo = callback;
-    return await _handleException('getEarnableTotalRewardInfo');
+    return await invokeMethodAndHandleException('getEarnableTotalRewardInfo');
   }
 
   @override
@@ -109,12 +93,12 @@ class AdPopcornOfferwallAndroid extends AdPopcornOfferwallPlatform {
     noArgListeners['onPopupAdClose'] = onPopupAdClose;
     popupAdErrorListeners['onLoadPopupAdFailure'] = onLoadPopupAdFailure;
     popupAdErrorListeners['onShowPopupAdFailure'] = onShowPopupAdFailure;
-    return await _handleException('loadPopupAd');
+    return await invokeMethodAndHandleException('loadPopupAd');
   }
 
   @override
   Future<void> showPopupAd() async {
-    return await _handleException('showPopupAd');
+    return await invokeMethodAndHandleException('showPopupAd');
   }
 
 }

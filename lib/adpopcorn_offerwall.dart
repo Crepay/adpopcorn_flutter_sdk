@@ -1,6 +1,21 @@
 import 'src/adpopcorn_offerwall_platform.dart';
 
+export 'src/adpopcorn_offerwall_platform.dart' show AdPopcornLogLevel;
+
 class AdPopcornOfferwall {
+  static Future<void> setAppKeyHashKey(String appKey, String hashKey) async {
+    return AdPopcornOfferwallPlatform.instance
+        .setAppKeyHashKey(appKey, hashKey);
+  }
+
+  static Future<void> useIgaworksRewardServer(bool flag) async {
+    return AdPopcornOfferwallPlatform.instance.useIgaworksRewardServer(flag);
+  }
+
+  static Future<void> setLogLevel(AdPopcornLogLevel level) async {
+    return AdPopcornOfferwallPlatform.instance.setLogLevel(level);
+  }
+
   static Future<void> setUserId(String userId) async {
     return AdPopcornOfferwallPlatform.instance.setUserId(userId);
   }
@@ -21,6 +36,23 @@ class AdPopcornOfferwall {
       NoArgumentListener listener) async {
     return AdPopcornOfferwallPlatform.instance
         .setOnClosedOfferWallPage(listener);
+  }
+
+  static Future<void> setOnWillOpenOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnWillOpenOfferWall(listener);
+  }
+
+  static Future<void> setOnDidOpenOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnDidOpenOfferWall(listener);
+  }
+
+  static Future<void> setOnWillCloseOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance
+        .setOnWillCloseOfferWall(listener);
+  }
+
+  static Future<void> setOnDidCloseOfferWall(NoArgumentListener listener) {
+    return AdPopcornOfferwallPlatform.instance.setOnDidCloseOfferWall(listener);
   }
 
   static Future<void> useFlagShowWhenLocked(bool flag) async {
