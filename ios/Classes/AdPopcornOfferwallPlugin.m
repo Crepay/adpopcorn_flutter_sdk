@@ -1,4 +1,5 @@
 #import "AdPopcornOfferwallPlugin.h"
+#import <AdPopcornOfferwall/AdPopcornOfferwall.h>
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
@@ -15,7 +16,7 @@
             binaryMessenger:[registrar messenger]];
   [registrar addMethodCallDelegate:instance channel:instance->channel];
   
-  [AdPopcornOfferwall shared].delegate = instance;
+  [AdPopcornOfferwall shared].delegate = (id<AdPopcornOfferwallDelegate>) instance;
   [AdPopcornOfferwall getEarnableTotalRewardInfo:instance];
 }
 
