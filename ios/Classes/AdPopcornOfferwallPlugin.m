@@ -1,19 +1,23 @@
 #import "AdPopcornOfferwallPlugin.h"
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import <AdPopcornOfferwall/AdPopcornOfferwall.h>
 
-@implementation AdPopcornOfferwallPlugin
+@implementation AdPopcornOfferwallPlugin {
+  FlutterMethodChannel* channel;
+}
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel* channel = [FlutterMethodChannel
+  AdPopcornOfferwallPlugin* instance = [[AdPopcornOfferwallPlugin alloc] init];
+  instance->channel = [FlutterMethodChannel
       methodChannelWithName:@"adpopcorn_flutter_sdk"
             binaryMessenger:[registrar messenger]];
-  AdPopcornOfferwallPlugin* instance = [[AdPopcornOfferwallPlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
+  [registrar addMethodCallDelegate:instance channel:instance->channel];
+  
+  [AdPopcornOfferwall shared].delegate = instance;
+  [AdPopcornOfferwall getEarnableTotalRewardInfo:instance];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  
   NSDictionary* arguments = call.arguments;
   
   if ([@"setAppKeyHashKey" isEqualToString:call.method]) {
@@ -36,7 +40,7 @@
       [AdPopcornOfferwall setLogLevel:AdPopcornOfferwallLogTrace];
     } else {
       return result([FlutterError errorWithCode:@"BAD_ARGUMENT"
-                                        message:[NSString stringWithFormat:@"'%@' is not supported", level]
+                                        message:[NSString stringWithFormat:@"'%@' is not supported for log level.", level]
                                         details:nil]);
     }
   } else if ([@"setUserId" isEqualToString:call.method]) {
@@ -46,11 +50,38 @@
   } else if ([@"openOfferWall" isEqualToString:call.method]) {
     UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
     [AdPopcornOfferwall openOfferWallWithViewController:viewController delegate:self userDataDictionaryForFilter:nil];
+  } else if ([@"getEarnableTotalRewardInfo" isEqualToString:call.method]) {
+    [AdPopcornOfferwall getEarnableTotalRewardInfo:self];
   } else {
     NSLog(@"[iOS] AdPopcornOfferwallPlugin: method=%@", call.method);
     return result(FlutterMethodNotImplemented);
   }
   return result(nil);
+}
+
+-(void)willOpenOfferWall { //Offerwall will be opened
+  [self->channel invokeMethod:@"onWillOpenOfferWall" arguments:nil];
+}
+
+-(void)didOpenOfferWall { //Offerwall did opened
+  [self->channel invokeMethod:@"onDidOpenOfferWall" arguments:nil];
+}
+
+-(void)willCloseOfferWall { //Offerwall will bel closed
+  [self->channel invokeMethod:@"onWillCloseOfferWall" arguments:nil];
+}
+
+-(void)didCloseOfferWall { //Offerwall did closed
+  [self->channel invokeMethod:@"onDidCloseOfferWall" arguments:nil];
+}
+
+- (void)offerwallTotalRewardInfo:(BOOL)queryResult totalCount:(NSInteger)totalCount totalReward:(NSString *)totalReward {
+  [self->channel invokeMethod:@"onGetEarnableTotalRewardInfo"
+                    arguments:@{
+    @"queryResult": @(queryResult),
+    @"totalCount": @(totalCount),
+    @"totalReward": totalReward,
+  }];
 }
 
 @end
