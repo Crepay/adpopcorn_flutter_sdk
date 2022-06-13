@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.crepay.thirdparty.adpopcorn_flutter_sdk_example">
-   <application
+    package="com.crepay.thirdparty.adpopcorn.adpopcorn_flutter_sdk_example">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
         android:label="adpopcorn_flutter_sdk_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -30,5 +34,20 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
+
+       <!-- Begin of Adpopcorn -->
+       <meta-data android:name="adpopcorn_app_key" android:value="YOUR_APP_KEY"/>
+       <meta-data android:name="adpopcorn_hash_key" android:value="YOUR_HASH_KEY"/>
+
+       <activity android:name="com.igaworks.adpopcorn.activity.ApOfferWallActivity_NT"
+           android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+           android:theme="@android:style/Theme.NoTitleBar"/>
+
+       <activity android:name="com.igaworks.adpopcorn.activity.ApVideoAdActivity"
+           android:theme="@android:style/Theme.NoTitleBar"/>
+
+       <meta-data android:name="adpopcorn_reward_server_type" android:value="server"/>
+       <!-- End of Adpopcorn -->
+
+   </application>
 </manifest>

@@ -1,0 +1,29 @@
+PODS:
+  - adpopcorn_flutter_sdk (0.1.0):
+    - AdPopcornOfferwall (~> 4.2.3)
+    - Flutter
+  - AdPopcornOfferwall (4.2.3)
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - adpopcorn_flutter_sdk (from `.symlinks/plugins/adpopcorn_flutter_sdk/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - AdPopcornOfferwall
+
+EXTERNAL SOURCES:
+  adpopcorn_flutter_sdk:
+    :path: ".symlinks/plugins/adpopcorn_flutter_sdk/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  adpopcorn_flutter_sdk: c766e96f6b4fbcfcf2c8d57991aecfb01d05f2ce
+  AdPopcornOfferwall: 5b9d55bde0d1eae6907e97821761034662953348
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+
+PODFILE CHECKSUM: b1f7a399522c118a74b177b13c01eca692aa7e6d
+
+COCOAPODS: 1.11.3
