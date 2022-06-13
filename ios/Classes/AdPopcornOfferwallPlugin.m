@@ -3,11 +3,13 @@
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 
 @implementation AdPopcornOfferwallPlugin {
+  FlutterViewController *controller;
   FlutterMethodChannel* channel;
 }
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   AdPopcornOfferwallPlugin* instance = [[AdPopcornOfferwallPlugin alloc] init];
+  instance->controller = (FlutterViewController*)[UIApplication sharedApplication].delegate.window.rootViewController;
   instance->channel = [FlutterMethodChannel
       methodChannelWithName:@"adpopcorn_flutter_sdk"
             binaryMessenger:[registrar messenger]];
@@ -48,8 +50,7 @@
     NSLog(@"[iOS] AdPopcornOfferwallPlugin: setUserId: userId=%@", userId);
     [AdPopcornOfferwall setUserId: userId];
   } else if ([@"openOfferWall" isEqualToString:call.method]) {
-    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [AdPopcornOfferwall openOfferWallWithViewController:viewController delegate:self userDataDictionaryForFilter:nil];
+    [AdPopcornOfferwall openOfferWallWithViewController:self->controller delegate:self userDataDictionaryForFilter:nil];
   } else if ([@"getEarnableTotalRewardInfo" isEqualToString:call.method]) {
     [AdPopcornOfferwall getEarnableTotalRewardInfo:self];
   } else {
